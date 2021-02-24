@@ -87,18 +87,10 @@ pip install pywizlight
 ````
 
 That's it 🙂
-Sample Python Code
 
+### Sample Python Code
 
-
-
-
-
-
-
-
-
-
+![Python Logo](https://github.com/DennisFaucher/webexzoomlight/blob/main/images/python-logo-master.png)
 
 I used the code right in the repo ReadMe Example section. I changed the IP address to the IP address of my bulb and then commented everything out except the lines that I needed. My two python scripts look like this (with commented lines removed)
 
