@@ -47,12 +47,7 @@ I am sure this could be easily modified for Windows. You can see that I debugged
 
 ### Recognize Zoom
 
-
-
-
-
-
-
+![Zoom Logo](https://github.com/DennisFaucher/webexzoomlight/blob/main/images/Zoom%20Logo.png)
 
 Just like for WebEx, for Zoom I ran a ps -e before joining and a ps -e after leaving a Zoom webinar. What I found on my Mac was that the difference between having the Zoom client running and not running (I quit Zoom after every meeting) was one process. This process has the unique string "/Applications/ zoom.us.app/ Contents/ Frameworks/ cpthost.app/ Contents/ MacOS/ CptHost" If I could trigger on the entrance and exit of that string, I would be all set. I created this shell script, check_zoom.sh to do just that:
 
