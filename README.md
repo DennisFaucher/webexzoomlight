@@ -19,7 +19,7 @@ Parts List
 
 ![WebEx Logo](https://github.com/DennisFaucher/webexzoomlight/blob/main/images/WebEx%20Logo.png)
 
-As I wrote in the Disclaimer, there is probably an elegant REST API method to recognizing when my computer is in a WebEx meeting. I spent a few minutes reading the Cisco REST API Guide and decided I really did not need to learn yet another REST API to make this work. I fell back to bash and ps. I ran a ps -e before joining and a ps -e after leaving a WebEx webinar. What I found on my Mac was that the difference between just having the WebEx client running and actually being in a WebEx meeting was two processes. Both processes have the unique string "/Users/ faucherd/ Library/ Application Support/ WebEx Folder/ T33_64UMC_40.11.5.11" If I could trigger on the entrance and exit of that string, I would be all set. I created this shell script, check_webex.sh to do just that:
+As I wrote in the Disclaimer, there is probably an elegant REST API method to recognizing when my computer is in a WebEx meeting. I spent a few minutes reading the Cisco REST API [Guide](https://developer.webex.com/docs/api/getting-started) and decided I really did not need to learn yet another REST API to make this work. I fell back to bash and ps. I ran a ps -e before joining and a ps -e after leaving a WebEx webinar. What I found on my Mac was that the difference between just having the WebEx client running and actually being in a WebEx meeting was two processes. Both processes have the unique string "/Users/ faucherd/ Library/ Application Support/ WebEx Folder/ T33_64UMC_40.11.5.11" If I could trigger on the entrance and exit of that string, I would be all set. I created this shell script, check_webex.sh to do just that:
 
 ````[bash]
 #!/bin/bash
@@ -76,7 +76,7 @@ done
 
 ![Wiz Light](https://github.com/DennisFaucher/webexzoomlight/blob/main/images/Wiz%20Light.png)
 
-Now, how to programmatically change the color of a Philips Wiz WiFi bulb? I initially sent a notification to my phone which Tasker picked up on and made changes in the Android Wiz app. Very kludgey. I then started looking for REST APIs for these Wiz bulbs. Luckily, I found this excellent GitHub repo based on some Wiz reverse-engineering. As is the case with most consumer-grade IOT devices, these Wiz bulbs are wide open and do not require any authentication to control them. All one needs is their IP address or MAC address. Throw some JSON at them over the network and Bob's your Uncle!
+Now, how to programmatically change the color of a Philips Wiz WiFi bulb? I initially sent a notification to my phone which Tasker picked up on and made changes in the Android Wiz app. Very kludgey. I then started looking for REST APIs for these Wiz bulbs. Luckily, I found this excellent GitHub [repo](https://github.com/sbidy/pywizlight) based on some Wiz reverse-engineering. As is the case with most consumer-grade IOT devices, these Wiz bulbs are wide open and do not require any authentication to control them. All one needs is their IP address or MAC address. Throw some JSON at them over the network and Bob's your Uncle!
 
 ### Steps to Use the Repo
 This GitHub's repo ReadMe is very clear as to the simple installation:
@@ -140,7 +140,7 @@ loop = asyncio.get_event_loop()
 loop.run_until_complete(main())
 ````
 
-That's it. I run check_webex.sh and check_zoom.sh in the background with the & suffix and everything works like magic. My next step is to add these two shell scripts to Mac startup using launchd.
+That's it. I run check_webex.sh and check_zoom.sh in the background with the & suffix and everything works like magic. My next step is to add these two shell scripts to Mac startup using [launchd](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html).
 
 ## Thank You
 
