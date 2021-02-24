@@ -14,15 +14,10 @@ Parts List
 * A Computer
 * WebEx and/or Zoom Client Installed
 * Philips Wiz WiFi Light Bulb
-* Recognize WebEx
 
+### Recognize WebEx
 
-
-
-
-
-
-
+![WebEx Logo](https://github.com/DennisFaucher/webexzoomlight/blob/main/images/WebEx%20Logo.png)
 
 As I wrote in the Disclaimer, there is probably an elegant REST API method to recognizing when my computer is in a WebEx meeting. I spent a few minutes reading the Cisco REST API Guide and decided I really did not need to learn yet another REST API to make this work. I fell back to bash and ps. I ran a ps -e before joining and a ps -e after leaving a WebEx webinar. What I found on my Mac was that the difference between just having the WebEx client running and actually being in a WebEx meeting was two processes. Both processes have the unique string "/Users/ faucherd/ Library/ Application Support/ WebEx Folder/ T33_64UMC_40.11.5.11" If I could trigger on the entrance and exit of that string, I would be all set. I created this shell script, check_webex.sh to do just that:
 
@@ -50,7 +45,7 @@ done
 
 I am sure this could be easily modified for Windows. You can see that I debugged my rusty if statements with echo statements until everything was working. The sleep statement can be made longer if you like. A 5 second sleep means that it will take a max of 9 seconds to change the light color.  I then added the calls to python scripts to change the light color. More on those python scripts below.
 
-## Recognize Zoom
+### Recognize Zoom
 
 
 
@@ -82,7 +77,7 @@ while true; do
 done
 ````
 
-## Change Light Color
+### Change Light Color
 
 
 
@@ -97,7 +92,7 @@ done
 
 Now, how to programmatically change the color of a Philips Wiz WiFi bulb? I initially sent a notification to my phone which Tasker picked up on and made changes in the Android Wiz app. Very kludgey. I then started looking for REST APIs for these Wiz bulbs. Luckily, I found this excellent GitHub repo based on some Wiz reverse-engineering. As is the case with most consumer-grade IOT devices, these Wiz bulbs are wide open and do not require any authentication to control them. All one needs is their IP address or MAC address. Throw some JSON at them over the network and Bob's your Uncle!
 
-## Steps to Use the Repo
+### Steps to Use the Repo
 This GitHub's repo ReadMe is very clear as to the simple installation:
 
 ````[bash]
@@ -121,7 +116,7 @@ Sample Python Code
 
 I used the code right in the repo ReadMe Example section. I changed the IP address to the IP address of my bulb and then commented everything out except the lines that I needed. My two python scripts look like this (with commented lines removed)
 
-### red.py
+#### red.py
 
 ````[python]
 import asyncio
@@ -144,7 +139,7 @@ loop = asyncio.get_event_loop()
 loop.run_until_complete(main())
 ````
 
-### warmwhite.py
+#### warmwhite.py
 
 ````[python]
 import asyncio
