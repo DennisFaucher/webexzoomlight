@@ -13,7 +13,7 @@ Parts List
 
 * A Computer
 * WebEx and/or Zoom Client Installed
-* Philips Wiz WiFi Light Bulb
+* Philips [Wiz](https://www.usa.lighting.philips.com/consumer/smart-wifi-led) WiFi Light Bulb
 
 ### Recognize WebEx
 
