@@ -74,16 +74,7 @@ done
 
 ### Change Light Color
 
-
-
-
-
-
-
-
-
-
-
+![Wiz Light](https://github.com/DennisFaucher/webexzoomlight/blob/main/images/Wiz%20Light.png)
 
 Now, how to programmatically change the color of a Philips Wiz WiFi bulb? I initially sent a notification to my phone which Tasker picked up on and made changes in the Android Wiz app. Very kludgey. I then started looking for REST APIs for these Wiz bulbs. Luckily, I found this excellent GitHub repo based on some Wiz reverse-engineering. As is the case with most consumer-grade IOT devices, these Wiz bulbs are wide open and do not require any authentication to control them. All one needs is their IP address or MAC address. Throw some JSON at them over the network and Bob's your Uncle!
 
