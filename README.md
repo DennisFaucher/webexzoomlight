@@ -1,5 +1,5 @@
 # Automatic "On-Air" WebEx/Zoom Light
-
+![WebEx & Zoom Logos](https://github.com/DennisFaucher/webexzoomlight/blob/main/images/header.png)
 
 Disclaimer: There are much more elegant ways to achieve this same result with WebEx/Zoom REST APIs, but this method works for me. Learning new REST APIs is always a steep curve. I used REST for the Philips light, but simple bash commands for WebEx and Zoom.
 
