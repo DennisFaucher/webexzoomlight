@@ -18,6 +18,74 @@ Parts List
 ### Recognize Live Microphone (v2)
 [Edit] In version 1 of this repo, I used scripts to see if WebEx or Zoom was running on my Mac. I then had a thought - "If I could recognize a live microphone, it wouldn't matter what web conferencing system I was using." So that is what I tried to figure out next.
 
+After some research, I learned that the command "ioreg -l |grep '"IOAudioEngineState" = 1'" would return true if any of the microphones on your Mac are live. Here are all the microphones on my Mac and their states during a recent webinar. You wills ee that My LG Ultrawide monitor microphone is not in use, my Logitech C920 webcam microphone is not in use, my Rode microphone _is_ in use, 
+
+````[bash]
+    | |   |                 +-o AppleGFXHDAEngineOutputDP  <class AppleGFXHDAEngineOutputDP, id 0x100008f85, registered, matched, active, busy 0 (1 ms), retain 15>
+    | |   |                   | {
+    | |   |                   |   "IOAudioEngineFlavor" = 1
+    | |   |                   |   "IOAudioEngineOutputSampleLatency" = 2
+    | |   |                   |   "IOAudioDeviceTransportType" = 1685090932
+    | |   |                   |   "IOAudioEngineDescription" = "LG ULTRAWIDE"
+    | |   |                   |   "IOAudioEngineSampleOffset" = 392
+    | |   |                   |   "AllowDisplaySleep" = 0
+    | |   |                   |   "IOAudioEngineOutputChannelLayout" = (1,2)
+    | |   |                   |   "IOAudioEngineClientDescription" = {"kind"=0}
+    | |   |                   |   "NoAutoRoute" = No
+    | |   |                   |   "SupportAudioAUUC" = 1
+    | |   |                   |   "IOAudioEngineClockDomain" = 500077696
+    | |   |                   |   "IOAudioEngineClockIsStable" = Yes
+    | |   |                   |   "IOAudioEngineState" = 0
+    | |   |   |   |     |   +-o AppleUSBAudioEngine  <class AppleUSBAudioEngine, id 0x1000006fc, registered, matched, active, busy 0 (1388 ms), retain 13>
+    | |   |   |   |     |     | {
+    | |   |   |   |     |     |   "IOAudioStreamSampleFormatByteOrder" = "Little Endian"
+    | |   |   |   |     |     |   "USBADC" = 0
+    | |   |   |   |     |     |   "IOAudioEngineInputSampleOffset" = 36
+    | |   |   |   |     |     |   "idProduct" = 2093
+    | |   |   |   |     |     |   "IOGeneralInterest" = "IOCommand is not serializable"
+    | |   |   |   |     |     |   "IOAudioEngineState" = 0
+    | |   |   |   |     |     |   "locationID" = 336658432
+    | |   |   |   |     |     |   "IOAudioEngineInputSampleLatency" = 4080
+    | |   |   |   |     |     |   "IOAudioEngineDescription" = "HD Pro Webcam C920"
+    | |   |   |   |     |   +-o AppleUSBAudioEngine  <class AppleUSBAudioEngine, id 0x1000006fe, registered, matched, active, busy 0 (1386 ms), retain 15>
+    | |   |   |   |     |   | | {
+    | |   |   |   |     |   | |   "IOAudioStreamSampleFormatByteOrder" = "Little Endian"
+    | |   |   |   |     |   | |   "IOAudioEngineNumActiveUserClients" = 1
+    | |   |   |   |     |   | |   "USBADC" = 0
+    | |   |   |   |     |   | |   "IOAudioEngineInputSampleOffset" = 151
+    | |   |   |   |     |   | |   "idProduct" = 3
+    | |   |   |   |     |   | |   "IOGeneralInterest" = "IOCommand is not serializable"
+    | |   |   |   |     |   | |   "IOAudioEngineState" = 1
+    | |   |   |   |     |   | |   "locationID" = 337707008
+    | |   |   |   |     |   | |   "IOAudioEngineInputSampleLatency" = 45
+    | |   |   |   |     |   | |   "IOAudioEngineDescription" = "RODE NT-USB"
+````
+I updated my red light/white light script to check to see if any microphones were in use rather than whether a webinar was open. The new script looks liek this:
+
+````[bash]
+#!/bin/bash
+trigger=0
+
+while true; do
+# Check to see if Mac microphone in use. "IOAudioEngineState" = 1
+     ioreg -l |grep '"IOAudioEngineState" = 1'
+     result=$?
+     if [ $result -eq 0 ] && [ $trigger -eq 0 ] 
+     then
+	python3 "/Users/faucherd/OneDrive - WWT/WWT/Innovation Games/2020/pywizlight/red.py"
+	trigger=1
+     elif [ $result -eq 1 ] && [ $trigger -eq 1 ]
+     then
+	python3 "/Users/faucherd/OneDrive - WWT/WWT/Innovation Games/2020/pywizlight/warmwhite.py"
+	trigger=0
+     fi
+     sleep 5
+done
+
+````
+
+That's it. Much simpler. I created a Mac Automator app that runs this script on login.
+
 ### Recognize WebEx
 
 ![WebEx Logo](https://github.com/DennisFaucher/webexzoomlight/blob/main/images/WebEx%20Logo.png)
