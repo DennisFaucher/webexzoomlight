@@ -15,6 +15,9 @@ Parts List
 * WebEx and/or Zoom Client Installed
 * Philips [Wiz](https://www.usa.lighting.philips.com/consumer/smart-wifi-led) WiFi Light Bulb
 
+### Recognize Live Microphone (v2)
+[Edit] In version 1 of this repo, I used scripts to see if WebEx or Zoom was running on my Mac. I then had a thought - "If I could recognize a live microphone, it wouldn't matter what web conferencing system I was using." So that is what I tried to figure out next.
+
 ### Recognize WebEx
 
 ![WebEx Logo](https://github.com/DennisFaucher/webexzoomlight/blob/main/images/WebEx%20Logo.png)
